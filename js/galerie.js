@@ -5,7 +5,7 @@ let imgSource= "../image/wine.jpg"
 
 let monImage= getImage(titre, imgSource );
 
-galerieImage.innerHTML =  monImage;
+galerieImage.innerHTML = monImage;
 
 function getImage(titre, urlImage){
     titre = sanitizeHtml(titre);
