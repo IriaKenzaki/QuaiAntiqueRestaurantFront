@@ -104,8 +104,6 @@ function sanitizeHtml(text){
 }
 
 function getInfosUser(){
-    console.log("Récupération des informations de l'utilisateur...");
-
     let myHeaders = new Headers();
     myHeaders.append("X-AUTH-TOKEN", getToken());
 
@@ -115,7 +113,7 @@ function getInfosUser(){
         redirect: 'follow'
     };
 
-    fetch(apiUrl+"account/me", requestOptions)
+    fetch(apiUrl+"/account/me", requestOptions)
     .then(response =>{
         if(response.ok){
             return response.json();
@@ -130,5 +128,4 @@ function getInfosUser(){
     .catch(error =>{
         console.error("erreur lors de la récupération des données utilisateur", error);
     });
-}   
-
+}
