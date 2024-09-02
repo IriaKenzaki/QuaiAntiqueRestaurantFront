@@ -1,6 +1,6 @@
 const galerieImage = document.getElementById("allImages");
 
-let titre = '<img src=x onerror="window.location.replace(\'https://google.com\')"/>';
+let titre = 'titre';
 let imgSource= "../image/wine.jpg"
 
 let monImage= getImage(titre, imgSource );
