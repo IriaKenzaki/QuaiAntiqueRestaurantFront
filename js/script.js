@@ -2,9 +2,9 @@
 const tokenCookieName = "accesstoken";
 const signoutBtn = document.getElementById("signout-btn");
 const RoleCookieName = "role";
+const apiUrl = "https://127.0.0.1:8000/api/";
 
 signoutBtn.addEventListener("click", signout);
-getInfosUser();
 
 function getRole(){
     return getCookie(RoleCookieName);
@@ -51,12 +51,7 @@ function eraseCookie(name) {
 }
 
 function isConnected(){
-    if(getToken() == null || getToken == undefined){
-        return false;
-    }
-    else{
-        return true;
-    }
+    return !(getToken() == null || getToken == undefined);
 }
 
 /*
@@ -103,6 +98,7 @@ function sanitizeHtml(text){
     return tempHtml.innerHTML;
 }
 
+
 function getInfosUser(){
     let myHeaders = new Headers();
     myHeaders.append("X-AUTH-TOKEN", getToken());
@@ -113,5 +109,19 @@ function getInfosUser(){
         redirect: 'follow'
     };
 
-
+    fetch(apiUrl+"account/me", requestOptions)
+    .then(response =>{
+        if(response.ok){
+            return response.json();
+        }
+        else{
+            console.log("Impossible de récupérer les informations utilisateur");
+        }
+    })
+    .then(result => {
+        return result;
+    })
+    .catch(error =>{
+        console.error("erreur lors de la récupération des données utilisateur", error);
+    });
 }
