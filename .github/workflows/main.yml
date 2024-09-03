@@ -16,7 +16,6 @@ jobs:
         password: ${{ secrets.ftp_password }}
         protocol: ftps  # This line specifies FTPS protocol
         port: 21        # Usually, FTPS runs on port 21, but verify this with your server settings
-        method: explicit # This specifies the type of FTPS (explicit or implicit)
         exclude: |
           **/.git*
           **/.git*/**
