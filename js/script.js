@@ -2,9 +2,10 @@
 const tokenCookieName = "accesstoken";
 const signoutBtn = document.getElementById("signout-btn");
 const RoleCookieName = "role";
-const apiUrl = "https://127.0.0.1:8000/api/";
+const apiUrl = "https://localhost:8000/api/";
 
 signoutBtn.addEventListener("click", signout);
+getInfosUser();
 
 function getRole(){
     return getCookie(RoleCookieName);
@@ -98,23 +99,30 @@ function sanitizeHtml(text){
     return tempHtml.innerHTML;
 }
 
-async function getInfosUser() {
-    try { 
-        let response = await fetch(apiUrl+'user', 
-            {
-                method: 'GET', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token // Ajoute le token si nécessaire 
-                }
-            }); 
-                if (!response.ok) { 
-                    throw new Error('Erreur réseau');
-                }
-                let data = await response.json();
-                 return data;
-                }
-                catch (error) { console.error('Il y a eu un problème avec la requête fetch:', error);
-                } 
-}
-// Exemple d'utilisation de la méthode 
-getInfosUser().then(data => { console.log(data); 
-});
-                
+function getInfosUser(){
+    let myHeaders = new Headers();
+    myHeaders.append("X-AUTH-TOKEN", getToken());
+
+    let requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+    };
+
+    fetch(apiUrl+"account/me", requestOptions)
+    .then(response =>{
+        if(response.ok){
+            return response.json();
+        }
+        else{
+            console.log("Impossible de récupérer les informations utilisateur");
+        }
+    })
+    .then(result => {
+        console.log(result);
+        return result;
+    })
+    .catch(error =>{
+        console.error("erreur lors de la récupération des données utilisateur", error);
+    });
+}    
