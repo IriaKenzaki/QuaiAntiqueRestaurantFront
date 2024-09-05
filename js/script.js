@@ -5,7 +5,7 @@ const RoleCookieName = "role";
 const apiUrl = "https://main-bvxea6i-5o3p7jub2naq6.fr-4.platformsh.site/api/";
 
 signoutBtn.addEventListener("click", signout);
-getInfosUser();
+
 
 function getRole(){
     return getCookie(RoleCookieName);
